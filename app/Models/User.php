@@ -28,6 +28,7 @@ class User extends Authenticatable
         'phone',
         'ip_address',
         'street_address',
+        'specialist_category',
         'division_id',
         'district_id',
         'role_id',

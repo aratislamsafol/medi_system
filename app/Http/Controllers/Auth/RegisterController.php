@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -54,7 +55,7 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         $districts = District::orderBy('district_name', 'asc')->get();
-        $divisions = Division::orderBy('priority', 'asc')->get();
+        $divisions = Division::orderBy('prioroty', 'asc')->get();
         return view('auth.register',compact('districts','divisions'));
     }
 
@@ -68,13 +69,14 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'f_name' => ['required', 'string', 'max:50'],
-            'l_name' => ['required', 'string', 'max:50'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'phone_number' => ['required', 'max:15'],
-            'division_id' => ['required','numeric'],
-            'distric_id' => ['required','numeric'],
-            'street_address' => ['required', 'max:100'],
+            // 'f_name' => ['required', 'string', 'max:50'],
+            // 'l_name' => ['required', 'string', 'max:50'],
+            // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            // 'phone' => ['required', 'max:15'],
+            // 'division_id' => ['required','numeric'],
+            // 'distric_id' => ['required','numeric'],
+            // 'street_address' => ['required', 'max:100'],
+            // 'specialist_category' => ['required', 'string', 'max:150'],
         ]);
     }
 
@@ -89,15 +91,20 @@ class RegisterController extends Controller
         return User::create([
             'f_name' => $data['f_name'],
             'l_name' => $data['l_name'],
-            'username'=>($data['l_name'].rand(1,3000)),
-            'phone_number' => $data['phone_number'],
+            'user_name'=>($data['l_name'].rand(1,3000)),
+            'age'=>$data['age'],
+            'phone' => $data['phone'],
             'email' => $data['email'],
+            'status' => 1,
             'street_address' => $data['street_address'],
             'division_id' => $data['division_id'],
             'district_id' => $data['distric_id'],
             'ip_address' =>request()->ip(),
-            'role_id' => 2,
+            'role_id' => 3,
+            'specialist_category' =>'SuperAdmin',
+            'blood_group'=> $data['blood_group'],
             'password' => Hash::make($data['password']),
+            'remember_token' =>Str::random(40)
         ]);
     }
 }
