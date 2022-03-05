@@ -27,6 +27,14 @@ class RedirectIfAuthenticated
             }
         }
 
-        return $next($request);
+        if(Auth::guard($guard)->check() && Auth::User()->role_id==1){
+            return redirect()->route('admin.dashboard');
+        }elseif(Auth::guard($guard)->check() && Auth::User()->role_id==2){
+            return redirect()->route('doctor.dashboard');
+        }elseif(Auth::guard($guard)->check() && Auth::User()->role_id==3){
+            return redirect()->route('patient.dashboard');
+        }else{
+            return $next($request);
+        }
     }
 }

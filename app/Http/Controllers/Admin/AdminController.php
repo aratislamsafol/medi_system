@@ -15,7 +15,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('backend.dashboard');
+        return view('backend.admin_dash');
     }
 
     public function Logout(){

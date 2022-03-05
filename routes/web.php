@@ -1,11 +1,11 @@
 <?php
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\DivisionController;
 use App\Http\Controllers\Admin\DistrictController;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
+
 
 
 /*
@@ -47,3 +47,19 @@ Route::get('view-distric', [App\Http\Controllers\Admin\DistrictController::class
 Route::get('get-districts/{id}', function($id){
     return json_encode(App\Models\District::where('division_id', $id)->get());
 });
+
+// ============================= Multiple Authentication ======================================
+Route::group(['prefix'=>'admin','middleware'=>['admin','auth'],'namespace'=>'admin'],function(){
+    Route::get('dashboard',[App\Http\Controllers\Admin\AdminController::class,'index'])->name('admin.dashboard');
+});
+Route::get('/logout',[AdminController::class,'Logout']);
+
+Route::group(['prefix'=>'doctor','middleware'=>['doctor','auth'],'namespace'=>'doctor'],function(){
+    Route::get('dashboard',[App\Http\Controllers\Doctor\DoctorController::class,'index'])->name('doctor.dashboard');
+});
+Route::group(['prefix'=>'patient','middleware'=>['patient','auth'],'namespace'=>'patient'],function(){
+    Route::get('dashboard',[App\Http\Controllers\Patient\PatientController::class,'index'])->name('patient.dashboard');
+});
+
+
+
