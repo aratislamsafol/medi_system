@@ -61,5 +61,8 @@ Route::group(['prefix'=>'patient','middleware'=>['patient','auth'],'namespace'=>
     Route::get('dashboard',[App\Http\Controllers\Patient\PatientController::class,'index'])->name('patient.dashboard');
 });
 
+// User Routes
+Route::get('user/token/{token}', [Frontend\VerificationController::class,'verify'])->name('user.verification');
+
 
 

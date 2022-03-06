@@ -34,7 +34,8 @@ class User extends Authenticatable
         'role_id',
         'blood_group',
         'password',
-        'status'
+        'status',
+        'remember_token'
     ];
 
     /**
