@@ -3,6 +3,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\VerificationController;
+use App\Http\Controllers\Auth\Reg_SuccessControlller;
 use App\Http\Controllers\Admin\DivisionController;
 use App\Http\Controllers\Admin\DistrictController;
 
@@ -62,7 +64,8 @@ Route::group(['prefix'=>'patient','middleware'=>['patient','auth'],'namespace'=>
 });
 
 // User Routes
-Route::get('user/token/{token}', [Frontend\VerificationController::class,'verify'])->name('user.verification');
+Route::get('user/token/{token}', [VerificationController::class,'verify'])->name('user.verification');
+// Registration Success Message
 
-
+Route::get('registration/verify/check',[Reg_SuccessControlller::class,'index'])->name('verification');
 

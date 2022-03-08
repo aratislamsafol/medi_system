@@ -1,5 +1,4 @@
-{{-- @extends('backend.backend_master') --}}
-@extends('layouts.app')
+@extends('backend.backend_master')
 @section('content')
 <div class="container">
     <div class="row justify-content-center">

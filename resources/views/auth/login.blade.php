@@ -11,6 +11,13 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
+                        @if (session('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>{{ session('success') }}</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                         @endif
+
                         <div class="row mb-3">
                             <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
 
