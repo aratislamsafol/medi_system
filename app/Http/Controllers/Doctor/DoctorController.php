@@ -16,5 +16,4 @@ class DoctorController extends Controller
         Auth::logout();
         return Redirect()->route('login');
     }
-
 }

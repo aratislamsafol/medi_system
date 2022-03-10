@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Doctor;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 
-class AdminController extends Controller
+class DoctorRegController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,13 +14,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('backend.admin_dash');
-    }
-
-    public function Logout(){
-        Auth::logout();
-        Session::flush();
-        return Redirect()->route('login');
+        
     }
 
     /**

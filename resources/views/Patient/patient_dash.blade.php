@@ -1,1 +1,1 @@
-<h1>Doctor Dashborad</h1>
+<h1>Patient Dashborad</h1>

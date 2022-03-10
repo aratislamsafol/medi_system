@@ -9,6 +9,7 @@ use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use App\Notifications\VerifyRegistration;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Auth\DoctorRegCheck;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -90,28 +91,62 @@ class RegisterController extends Controller
      */
     protected function register(Request $request)
     {
-        $user= User::create([
-            'f_name' =>  $request->f_name,
-            'l_name' =>  $request->l_name,
-            'user_name'=>($request->l_name.rand(1,3000)),
-            'age'=> $request->age,
-            'phone' =>  $request->phone,
-            'email' =>  $request->email,
-            'status' => 0,
-            'street_address' =>  $request->street_address,
-            'division_id' => $request->division_id,
-            'district_id' => $request->distric_id,
-            'ip_address' =>request()->ip(),
-            'role_id' => 3,
-            'specialist_category' =>'SuperAdmin',
-            'blood_group'=> $request->blood_group,
-            'password' => Hash::make($request->password),
-            'remember_token' =>Str::random(40)
-        ]);
+        // dd($request->all());
+        if($request->specialist_category == 'patient'){
+            $user= User::create([
+                'f_name' =>  $request->f_name,
+                'l_name' =>  $request->l_name,
+                'user_name'=>($request->l_name.rand(1,3000)),
+                'age'=> $request->age,
+                'phone' =>  $request->phone,
+                'email' =>  $request->email,
+                'status' => 0,
+                'street_address' =>  $request->street_address,
+                'division_id' => $request->division_id,
+                'district_id' => $request->distric_id,
+                'ip_address' =>request()->ip(),
+                'role_id' => 3,
+                'specialist_category' =>$request->specialist_category,
+                'blood_group'=> $request->blood_group,
+                'password' => Hash::make($request->password),
+                'remember_token' =>Str::random(40),
+            ]);
 
-        $user->notify(new VerifyRegistration($user));
+            $user->notify(new VerifyRegistration($user));
 
-        session()->flash('success', 'A confirmation email has sent to you.. Please check and confirm your email');
-        return redirect()->route('verification');
+            session()->flash('success', 'A confirmation email has sent to you.. Please check and confirm your email');
+            return redirect()->route('verification');
+        }else{
+            // $user= User::create([
+            //     'f_name' =>  $request->f_name,
+            //     'l_name' =>  $request->l_name,
+            //     'user_name'=>($request->l_name.rand(1,3000)),
+            //     'age'=> $request->age,
+            //     'phone' =>  $request->phone,
+            //     'email' =>  $request->email,
+            //     'status' => 0,
+            //     'street_address' =>  $request->street_address,
+            //     'division_id' => $request->division_id,
+            //     'district_id' => $request->distric_id,
+            //     'ip_address' =>request()->ip(),
+            //     'role_id' => 3,
+            //     'specialist_category' =>$request->specialist_category,
+            //     'blood_group'=> $request->blood_group,
+            //     'password' => Hash::make($request->password),
+            //     'remember_token' =>Str::random(40),
+            // ]);
+            DoctorRegCheck::create([
+                'designation'=>$request->designation,
+                'expertise'=>$request->expertise,
+                'certificate'=>$request->certificate,
+            ]);
+
+            // $user->notify(new VerifyRegistration($user));
+
+            // session()->flash('success', 'A confirmation email has sent to you.. Please check and confirm your email');
+            // return redirect()->route('verification');
+
+        }
+
     }
 }

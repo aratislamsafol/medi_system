@@ -5,8 +5,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\VerificationController;
 use App\Http\Controllers\Auth\Reg_SuccessControlller;
-use App\Http\Controllers\Admin\DivisionController;
-use App\Http\Controllers\Admin\DistrictController;
+use App\Http\Controllers\Auth\DoctorRegCheck;
+// use App\Http\Controllers\Admin\DivisionController;
+// use App\Http\Controllers\Admin\DistrictController;
 
 
 
@@ -68,4 +69,5 @@ Route::get('user/token/{token}', [VerificationController::class,'verify'])->name
 // Registration Success Message
 
 Route::get('registration/verify/check',[Reg_SuccessControlller::class,'index'])->name('verification');
+Route::get('doctor/confirmation/data',[DoctorRegCheck::class,'index'])->name('doctor.data');
 

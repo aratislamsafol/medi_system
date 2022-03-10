@@ -35,7 +35,10 @@ class User extends Authenticatable
         'blood_group',
         'password',
         'status',
-        'remember_token'
+        'remember_token',
+        'designation',
+        'certificate'
+
     ];
 
     /**
@@ -59,5 +62,9 @@ class User extends Authenticatable
 
     public function role(){
         return $this->belongsTo('App\Role');
+    }
+
+    public function DoctorRegcheck(){
+        return $this->belongsTo('App\DoctorRegcheck');
     }
 }
